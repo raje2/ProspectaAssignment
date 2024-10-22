@@ -53,11 +53,22 @@ I want a program that will take the CSV input above and produce CSV output with 
 
 ### Answers to the Challenge
 
-1. **How will you tackle the challenge above?**  
-   To tackle the CSV processing challenge, I would first read the input CSV file and evaluate each cell's content. If a cell contains a numeric value, I would store it directly. For cells with formulas, I would parse and evaluate them, ensuring that I can handle basic arithmetic operations and variable references. After processing the data, I would output the results to a new CSV file.
+## 1. How will you tackle the challenge above?
+To tackle the challenge of reading a CSV file and calculating values from formulas, the following approach is used:
+- **Step 1:** Read the CSV file line by line and store the data in a matrix (2D array).
+- **Step 2:** Create a method to identify whether a cell contains a formula (e.g., `=5+A1`) or a regular number.
+- **Step 3:** If a cell contains a formula, break it down, retrieve the referenced values (e.g., `A1`), compute the result, and replace the formula with the computed value.
+- **Step 4:** After all calculations are done, write the updated data back into a new CSV file.
 
-2. **What type of errors would you check for?**  
-   I would check for various types of errors, such as syntax errors in formulas, undefined variable references, and invalid data types. Additionally, I would ensure to handle cases like division by zero to prevent runtime issues.
+## 2. What type of errors would you check for?
+The code checks for the following types of errors:
+- **Incorrect cell references:** For example, referencing a non-existent cell like `D4`.
+- **Malformed formulas:** Formulas without operators or with invalid characters will be flagged.
+- **Empty or missing cells:** Cells with missing values may cause issues during calculations.
+- **Number format errors:** If a formula references a string instead of a number, it will trigger a format error.
 
-3. **How might a user break your code?**  
-   Users might break the code by entering invalid formulas, such as incorrect syntax or using non-numeric values, which could lead to parsing errors. Large or complex CSV files could also affect performance, and circular references in formulas could cause infinite loops during evaluation. To ensure reliability, I would implement error handling and validation checks throughout the program.
+## 3. How might a user break your code?
+A user might break the code by:
+- **Entering invalid formulas:** For example, formulas like `=A+1` or using unsupported operators might cause issues.
+- **Referencing non-existent cells:** Cells such as `Z10` that don't exist in the CSV would crash the program.
+- **Leaving cells empty or using non-numeric values:** If text or empty cells are used in place of numbers, the program might not work as expected.
